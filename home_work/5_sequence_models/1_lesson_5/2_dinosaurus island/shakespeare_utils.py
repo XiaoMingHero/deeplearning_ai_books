@@ -30,12 +30,13 @@ def build_data(text, Tx = 40, stride = 3):
 
     ### START CODE HERE ### (≈ 3 lines)
     for i in range(0, len(text) - Tx, stride):
-        X.append(text[i: i + Tx])
+        X.append(text[i : i + Tx])
+        # print('X = ', text[i : i + Tx])
         Y.append(text[i + Tx])
-    ### END CODE HERE ###
-    
+        # print('Y = ', text[i + Tx])
+    ### END CODE HERE ###    
+        
     print('number of training examples:', len(X))
-    
     return X, Y
 
 
@@ -54,6 +55,9 @@ def vectorization(X, Y, n_x, char_indices, Tx = 40):
     """
     
     m = len(X)
+    print('m = ', m)
+    print('Tx = ', Tx)
+    print('n_x = ', n_x)
     x = np.zeros((m, Tx, n_x), dtype=np.bool)
     y = np.zeros((m, n_x), dtype=np.bool)
     for i, sentence in enumerate(X):
@@ -115,14 +119,14 @@ def on_epoch_end(epoch, logs):
     print()
  """   
 print("Loading text data...")
-text = io.open('shakespeare.txt', encoding='utf-8').read().lower()
-#print('corpus length:', len(text))
+text = io.open("shakespeare.txt", encoding='utf-8').read().lower()
+print('corpus length:', len(text))
 
 Tx = 40
 chars = sorted(list(set(text)))
 char_indices = dict((c, i) for i, c in enumerate(chars))
 indices_char = dict((i, c) for i, c in enumerate(chars))
-#print('number of unique characters in the corpus:', len(chars))
+print('number of unique characters in the corpus:', len(chars))
 
 print("Creating training set...")
 X, Y = build_data(text, Tx, stride = 3)
